@@ -1,14 +1,17 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const { Pool } = require('pg');
-const app = express();
+import express, { Express } from 'express';
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import { Pool } from 'pg';
+
+const app: Express = express();
+
 app.use(bodyParser.json());
 app.use(cors());
-const port = process.env.PORT || 443; // Use assigned port or default to 3000
-app.listen(port, () => {
-    console.log(`Server started on port ${port}`);
+
+app.listen(3000, () => {
+    console.log('Server started on port 3000');
 });
+
 const pool = new Pool({
     user: 'testcap_user',
     host: 'dpg-cg3ufmik728m6o3evo30-a.singapore-postgres.render.com',
@@ -18,6 +21,7 @@ const pool = new Pool({
     ssl: true, // enable SSL/TLS
     connectionTimeoutMillis: 10000 // Increase the timeout value to 5 seconds
 });
+
 app.get('/users', (req, res) => {
     pool.query('SELECT uid, frequency, voltage FROM public.users;', (err, result) => {
         if (err) {
