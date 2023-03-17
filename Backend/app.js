@@ -31,9 +31,6 @@ app.get('/users', (req, res) => {
     });
 });
 
-
-
-
 const html = `
 <!DOCTYPE html>
 <html>
